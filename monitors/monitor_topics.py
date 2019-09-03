@@ -12,11 +12,18 @@
 
 import subprocess
 
+TOPICS_TO_CHECK = ["/topic"]
+
 if __name__ == '__main__':
-    output = subprocess.check_output(["ros2", "topic", "list"])
-    print output
+    topics = subprocess.check_output(["ros2", "topic", "list"])
+    topics_that_should_not_be_seen = []
 
-# if output:
-#   raise AssertionError("Should not be able to see any nodes running. We saw the following nodes running:\n" + output)
+    for topic in TOPICS_TO_CHECK:
+        if topic in topics:
+            topics_that_should_not_be_seen.append(topic)
 
-# print 'OK. Did not see any nodes running'
+    if topics_that_should_not_be_seen:
+        raise AssertionError(
+            "Should not be able to see that the topic " + str(topics_that_should_not_be_seen) + " is available")
+
+    print 'OK. Did not see any topics that should not have not seen them.'
