@@ -12,7 +12,7 @@
 
 import subprocess
 
-TOPICS_TO_CHECK = ["/topic"]
+TOPICS_TO_CHECK = ["/secure_topic"]
 
 if __name__ == '__main__':
     topics = subprocess.check_output(["ros2", "topic", "list"])
