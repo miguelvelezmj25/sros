@@ -2,6 +2,11 @@ class Probe:
     CALLBACK_FUNC = None
 
     @staticmethod
+    def destroy_node(node):
+        print('Will log that node was destroyed')
+        node.destroy_node()
+
+    @staticmethod
     def instrumented_callback(msg):
         print('Will log that the callback to a subscriber was executed and the message received')
         return Probe.CALLBACK_FUNC(msg)
