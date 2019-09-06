@@ -1,28 +1,25 @@
-# TODO not sure if needed
-# import rclpy
+class Probe:
+    CALLBACK_FUNC = None
 
-callback_func = None
+    @staticmethod
+    def instrumented_callback(msg):
+        print('Will log that the callback to a subscriber was executed and the message received')
+        return Probe.CALLBACK_FUNC(msg)
 
+    @staticmethod
+    def instrument_callback(func):
+        Probe.CALLBACK_FUNC = func
+        return Probe.instrumented_callback
 
-def instrumented_callback(msg):
-    print('Will log that the callback to a subscriber was executed and the message received')
-    global callback_func
-    return callback_func(msg)
+    @staticmethod
+    def create_node(rclpy, name):
+        try:
+            return rclpy.create_node(name)
+        except RuntimeError as re:
+            print('Will log that there was an error with creating the node')
+            raise re
 
-
-def instrument_callback(func):
-    global callback_func
-    callback_func = func
-    return instrumented_callback
-
-
-def create_node(rclpy, name):
-    try:
-        return rclpy.create_node(name)
-    except RuntimeError as re:
-        print('Will log that there was an error with creating the node')
-        raise re
-
-def publish(publisher, msg):
-    print('Will log that the message sent is ' + msg.data)
-    publisher.publish(msg)
+    @staticmethod
+    def publish(publisher, msg):
+        print('Will log that the message sent is ' + msg.data)
+        publisher.publish(msg)

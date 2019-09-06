@@ -1,5 +1,5 @@
 # Copyright 2016 Open Source Robotics Foundation, Inc.
-#END)
+#
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -26,7 +26,7 @@ def main(args=None):
     rclpy.init(args=args)
     #node = rclpy.create_node('authenticated_publisher')
     # WILL INSTRUMENT AUTOMATICALLY
-    node = probe.create_node(rclpy, 'authenticated_publisher')
+    node = probe.Probe.create_node(rclpy, 'authenticated_publisher')
     publisher = node.create_publisher(String, 'secure_topic')
 
     msg = String()
@@ -36,7 +36,7 @@ def main(args=None):
         node.get_logger().info('Publishing: "%s"' % msg.data)
         # WILL INSTRUMENT AUTOMATICALLY
         #publisher.publish(msg)
-        probe.publish(publisher, msg)
+        probe.Probe.publish(publisher, msg)
         sleep(0.5)  # seconds
 
     # Destroy the node explicitly
