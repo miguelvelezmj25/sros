@@ -1,3 +1,5 @@
+# Probe variant to use in tests to send and receive messages from an authenticated node
+
 class Probe:
     CALLBACK_FUNC = None
     AUTHENTICATED_MESSAGE = 'should be sent and received'

@@ -1,3 +1,5 @@
+# Probe variant to use in tests when sending a message from an attacker node and checking if the message was received by another node
+
 class Probe:
     CALLBACK_FUNC = None
     ATTACKER_MESSAGE = 'malicious data'
@@ -20,18 +22,13 @@ class Probe:
         print('Will log that the attacker message that was sent was received')
 
     @staticmethod
-    def instrument_callback(func):
-        Probe.CALLBACK_FUNC = func
-        return Probe.instrumented_callback
-
-    @staticmethod
     def create_node(rclpy, name):
         try:
             node = rclpy.create_node(name)
             print('Will log an AssertionError: the node should not be create since it is not authenticated')
             return node
         except RuntimeError as re:
-            print('Will log that there was an error with creating the node')
+            print('Will log that this behavior is intended since the node should not have been created')
             raise re
 
     @staticmethod
@@ -41,4 +38,3 @@ class Probe:
         print('Will log that we sent attacker message ' + Probe.ATTACKER_MESSAGE)
         msg.data = Probe.ATTACKER_MESSAGE
         publisher.publish(msg)
-        

@@ -13,7 +13,8 @@
 # limitations under the License.
 
 import functools
-import examples_rclpy_minimal_subscriber.probe_attacker as probe
+import examples_rclpy_minimal_subscriber.probe as probe
+import examples_rclpy_minimal_subscriber.probe_attacker as probe_attacker
 import rclpy
 
 from std_msgs.msg import String
@@ -30,12 +31,12 @@ def main(args=None):
     rclpy.init(args=args)
 
     # WILL INSTRUMENT AUTOMATICALLY
-    #g_node = rclpy.create_node('naive_subscriber')
-    g_node = probe.Probe.create_node(rclpy, 'naive_subscriber')
+    #g_node = rclpy.create_node('authenticated_subscriber')
+    g_node = probe.Probe.create_node(rclpy, 'authenticated_subscriber')
 
     # WILL INSTRUMENT AUTOMATICALLY
     #subscription = g_node.create_subscription(String, 'secure_topic', chatter_callback)
-    subscription = g_node.create_subscription(String, 'secure_topic', probe.Probe.instrument_callback(chatter_callback))
+    subscription = g_node.create_subscription(String, 'secure_topic', probe_attacker.Probe.instrument_callback(chatter_callback))
     subscription  # prevent unused variable warning
 
     i = 0
@@ -48,7 +49,7 @@ def main(args=None):
     # when the garbage collector destroys the node object)
     # WILL INSTRUMENT AUTOMATICALLY
     #g_node.destroy_node()
-    probe.Probe.destroy_node(g_node)
+    probe_attacker.Probe.destroy_node(g_node)
     rclpy.shutdown()
 
 

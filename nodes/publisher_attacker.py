@@ -32,7 +32,7 @@ def main(args=None):
     msg = String()
 
     for i in range(0, 10):
-        msg.data = 'Malicious message ' + str(i)
+        msg.data = 'Regular message ' + str(i)
         node.get_logger().info('Publishing: "%s"' % msg.data)
         # WILL INSTRUMENT AUTOMATICALLY
         #publisher.publish(msg)

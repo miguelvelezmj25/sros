@@ -1,3 +1,5 @@
+# Template for probes
+
 class Probe:
     CALLBACK_FUNC = None
 
