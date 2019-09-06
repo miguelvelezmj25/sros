@@ -31,8 +31,8 @@ def main(args=None):
 
     msg = String()
 
-    for _ in range(0, 10):
-        msg.data = 'Autheticated'
+    for i in range(0, 10):
+        msg.data = 'Authenticated ' + str(i)
         node.get_logger().info('Publishing: "%s"' % msg.data)
         # WILL INSTRUMENT AUTOMATICALLY
         #publisher.publish(msg)

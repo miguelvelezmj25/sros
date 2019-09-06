@@ -29,24 +29,26 @@ def main(args=None):
     global g_node
     rclpy.init(args=args)
 
+    # WILL INSTRUMENT AUTOMATICALLY
     #g_node = rclpy.create_node('authenticated_subscriber')
     g_node = probe.Probe.create_node(rclpy, 'authenticated_subscriber')
 
+    # WILL INSTRUMENT AUTOMATICALLY
     #subscription = g_node.create_subscription(String, 'secure_topic', chatter_callback)
     subscription = g_node.create_subscription(String, 'secure_topic', probe.Probe.instrument_callback(chatter_callback))
     subscription  # prevent unused variable warning
 
-#    i = 0
-#    while i < 5:
-#        rclpy.spin_once(g_node)
-#        i+= 1
-
-    rclpy.spin_once(g_node)
+    i = 0
+    while i < 5:
+        rclpy.spin_once(g_node)
+        i+= 1
 
     # Destroy the node explicitly
     # (optional - otherwise it will be done automatically
     # when the garbage collector destroys the node object)
-    g_node.destroy_node()
+    # WILL INSTRUMENT AUTOMATICALLY
+    #g_node.destroy_node()
+    probe.Probe.destroy_node(g_node)
     rclpy.shutdown()
 
 
