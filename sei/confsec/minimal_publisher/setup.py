@@ -34,8 +34,8 @@ setup(
             ' examples_rclpy_minimal_publisher.publisher_local_function:main',
             'publisher_member_function ='
             ' examples_rclpy_minimal_publisher.publisher_member_function:main',
-            'teleop_publisher ='
-            ' examples_rclpy_minimal_publisher.teleop_publisher:main',
+            'attacker_teleop_publisher ='
+            ' examples_rclpy_minimal_publisher.attacker_teleop_publisher:main',
         ],
     },
 )
